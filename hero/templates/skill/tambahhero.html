@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>{{hero_title}}</title>
+  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="mt-4">{{hero_title}}</h1>
+    <p class="mb-4">{{hero_desc}}</p>
+    <hr class="hr100">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="card shadow-sm mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Tambah Hero Untuk Skill : {{dataskill.skill}}</h6>
+        </div>
+        <input type="hidden" class="form-control form-control-user" value="{{dataskill.id}}" name="id_skill">
+        <div class="card-body">
+          <label>Nama Hero</label>
+          <select class="form-control form-control-form-control-user" name="idhero" id="idhero">
+            {% for heroes in datahero %}
+            <option value="{{heroes.id}}">{{heroes.nama}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Simpan Skill</button>
+          <a href="/" class="btn btn-default">Batal</a>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script src="{% static 'jquery/jquery.slim.min.js' %}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+
+</html>

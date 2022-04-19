@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>{{hero_title}}</title>
+  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="mt-4">{{hero_title}}</h1>
+    <p class="mb-4">{{hero_desc}}</p>
+    <form method="GET">
+      {% csrf_token %}
+      <div class="card shadow-sm mb-4">
+        <div class="card-header py-3">
+          <div class="page-header float-left">
+            <h6 class="m-0 font-weight-bold text-primary">Detail Superhero : {{detaildata.nama}}</h6>
+          </div>
+          <div class="page-header float-right">
+            <a href="/detail/{{ detaildata.id }}" class="btn btn-primary btn-sm" title="edit">Edit</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <label>ID</label>
+          <div class="form-group">
+            <input type="text" class="form-control form-control-user" name="id" id="id" value="{{detaildata.id}}"
+              readonly style="background-color:#fff;">
+          </div>
+          <label>Nama Superhero</label>
+          <div class="form-group">
+            <input type="text" class="form-control form-control-user" placeholder="Masukkan Nama Superhero" name="nama"
+              id="nama" value="{{detaildata.nama}}" readonly style="background-color:#fff;">
+          </div>
+          <label>Jenis Kelamin</label>
+          <div class="form-group">
+            <select id="jnsk" name="jnsk" class="form-control form-control-user" tabindex="1" readonly
+              style="background-color:#fff;">
+              <option value='value="{{detaildata.jenis_kelamin}}"'>{{detaildata.jenis_kelamin}}</option>
+            </select>
+          </div>
+        </div>
+
+        <hr class="hr100">
+
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th style="width: 5px">NO</th>
+                  <th style="width: 100px;">Skil</th>
+                  <th style="width: 100px;"><a href="/addskill/{{ tampilkandatanya.id }}" class="btn btn-primary btn-sm"
+                      title="add skill">Tambah Skill</a></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for tampilkandatanya in heroes %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ tampilkandatanya.skill }}</td>
+                  <td>
+                    <a href="/delete/{{ tampilkandatanya.id }}" class="btn btn-danger btn-sm" title="Hapus">Delete</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a href="/" class="btn btn-default">Batal</a>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script src="{% static 'jquery/jquery.slim.min.js' %}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+
+</html>
